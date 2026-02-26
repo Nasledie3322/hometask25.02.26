@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.DTOs;
 using WebApi.EmailService;
+using WebApi.Entities;
 
 namespace WebApi.Controllers
 {

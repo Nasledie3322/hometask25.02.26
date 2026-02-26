@@ -15,7 +15,8 @@ namespace RazorSide.Pages.Auth
         }
 
         [BindProperty]
-        public RegisterDto registerDto {get; set;} = new();
+        public RegisterDto RegisterDto { get; set; } = new();
+
         public void OnGet()
         {
         }
@@ -27,8 +28,8 @@ namespace RazorSide.Pages.Auth
                 return Page();
             }
 
-            var email = registerDto.Email.Trim();
-            var fullName = registerDto.FullName.Trim();
+            var email = RegisterDto.Email.Trim();
+            var fullName = RegisterDto.FullName.Trim();
 
             var user = new ApplicationUser
             {
@@ -37,13 +38,13 @@ namespace RazorSide.Pages.Auth
                 FullName = fullName
             };
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var result = await _userManager.CreateAsync(user, RegisterDto.Password);
 
             if (!result.Succeeded)
             {
-                foreach (var e in result.Errors)
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, e.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
 
                 return Page();

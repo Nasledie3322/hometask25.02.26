@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.AuthService;
 using WebApi.DTOs;
 using WebApi.EmailService;
+using WebApi.Entities;
 
 [ApiController]
 [Route("api/auth")]
