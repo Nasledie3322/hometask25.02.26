@@ -13,4 +13,8 @@ public interface IProductService
     Task<ProductDto> AddAsync(CreateProductDto productDto);
     Task<ProductDto> GetProduct(int id);
     Task DeleteAsync(int id);
-}
+
+    // new methods used by razor pages
+    Task UpdateProduct(int id, CreateProductDto productDto);
+    Task DeleteProduct(int id);
+} 

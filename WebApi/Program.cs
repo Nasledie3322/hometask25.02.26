@@ -109,6 +109,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+// Add Quartz
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    
+    var jobKey = new JobKey("ReportJob");
+    q.AddJob<ReportJob>(opts => opts.WithIdentity(jobKey));
+    
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("ReportJobTrigger")
+        // cron expression: second minute hour day-of-month month day-of-week
+        // "0 0 9 * * ?" runs every day at 09:00:00
+        .WithCronSchedule("0 0 9 * * ?") // Daily at 9 AM
+    );
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+
 var app = builder.Build();
 
 try

@@ -72,4 +72,23 @@ public class ProductService(ApplicationDbContext _dbContext) : IProductService
             await context.SaveChangesAsync();
         }
     }
+
+    // application-level convenience methods used by razor pages
+    public async Task UpdateProduct(int id, CreateProductDto productDto)
+    {
+        var existing = await context.products.FindAsync(id);
+        if (existing == null)
+            throw new Exception("Product not found");
+        existing.Name = productDto.Name;
+        existing.Price = productDto.Price;
+        existing.Description = productDto.Description;
+        existing.Stock = productDto.Stock;
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteProduct(int id)
+    {
+        // simply delegate to the existing delete logic for clarity
+        await DeleteAsync(id);
+    }
 }
