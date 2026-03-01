@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+181dd93d04478f053a4727e9d38f4cadca85c880")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ec1ef68e79da0e6df4b13e3caad4f2459bab3d6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
