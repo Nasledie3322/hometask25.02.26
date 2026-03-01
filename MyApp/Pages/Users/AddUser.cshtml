@@ -1,0 +1,65 @@
+@page
+@model MyApp.Pages.Users.AddUserModel
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="page-title">➕ Add New User</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="post" class="needs-validation">
+                    <div class="mb-4">
+                        <label asp-for="RegisterDto.FullName" class="form-label">
+                            <strong>Full Name</strong>
+                        </label>
+                        <input asp-for="RegisterDto.FullName" class="form-control form-control-lg" placeholder="Enter full name" required />
+                        <span asp-validation-for="RegisterDto.FullName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="RegisterDto.Email" class="form-label">
+                            <strong>Email</strong>
+                        </label>
+                        <input asp-for="RegisterDto.Email" type="email" class="form-control form-control-lg" placeholder="you@example.com" required />
+                        <span asp-validation-for="RegisterDto.Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="RegisterDto.Password" class="form-label">
+                            <strong>Password</strong>
+                        </label>
+                        <input asp-for="RegisterDto.Password" type="password" class="form-control form-control-lg" required />
+                        <span asp-validation-for="RegisterDto.Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/Users/Users" class="btn btn-secondary btn-lg">
+                            ❌ Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            ✅ Create User
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label {
+        color: #4f46e5;
+        margin-bottom: 10px;
+    }
+    .form-control:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+    .btn-secondary {
+        background-color: #6b7280;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background-color: #374151;
+    }
+</style>

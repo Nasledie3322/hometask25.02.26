@@ -1,10 +1,75 @@
 @page "{id:int}"
-@model GetProductModel;
+@model MyApp.Pages.Products.GetProductModel
 
-<h1>Product</h1>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="page-title"> Product Details</h1>
 
-<p>Id: @Model.productDto.Id</p>
-<p>Name: @Model.productDto.Name</p>
-<p>Price: @Model.productDto.Price</p>
-<p>Description: @Model.productDto.Description</p>
-<button><a href="/Products/Products">Exit</a></button>
+        <div class="card">
+            <div class="card-header">
+                <h2>@Model.productDto.Name</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="text-muted">Product ID</h5>
+                        <p class="card-text"><strong>#@Model.productDto.Id</strong></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-muted">Price</h5>
+                        <p class="card-text"><span class="badge badge-success" style="font-size: 1.2rem; padding: 10px 15px;">$@Model.productDto.Price.ToString("F2")</span></p>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="mb-4">
+                    <h5 class="text-muted">Stock Status</h5>
+                    <p class="card-text">
+                        @if (Model.productDto.Stock > 0)
+                        {
+                            <span class="badge bg-success" style="font-size: 1rem; padding: 8px 12px;">✅ @Model.productDto.Stock items available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger" style="font-size: 1rem; padding: 8px 12px;">❌ Out of Stock</span>
+                        }
+                    </p>
+                </div>
+
+                <hr />
+
+                <div class="mb-4">
+                    <h5 class="text-muted">Description</h5>
+                    <p class="card-text">@(string.IsNullOrEmpty(Model.productDto.Description) ? "No description provided" : Model.productDto.Description)</p>
+                </div>
+
+                <hr />
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="/Products/Products" class="btn btn-secondary btn-lg">
+                         Back to Products
+                    </a>
+                    <a href="/Products/UpdateProduct/@Model.productDto.Id" class="btn btn-warning btn-lg">
+                         Edit Product
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge-success {
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%) !important;
+        color: white;
+    }
+    .text-muted {
+        color: #6b7280 !important;
+        font-weight: 600;
+    }
+    .card-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+</style>

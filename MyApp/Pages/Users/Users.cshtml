@@ -1,13 +1,66 @@
 @page
-@model UsersModel
-All users
-<h1>Users</h1>
+@model MyApp.Pages.Users.UsersModel
 
-@foreach(var user in Model.users)
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1 class="page-title">👥 User Directory</h1>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="/Users/AddUser" class="btn btn-success btn-lg">
+            <i class="fas fa-user-plus"></i> Add User
+        </a>
+    </div>
+</div>
+
+@if (Model.users == null || Model.users.Count == 0)
 {
-    
-    <div class="users-div"><h1>@user.FullName</h1>
-    <p>@user.Email</p></div>
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No Users Found</h4>
+        <p>There are currently no registered users. <a href="/Users/AddUser" class="alert-link">Add your first user</a>.</p>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int index = 1;}
+                @foreach (var user in Model.users)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>@user.FullName</td>
+                        <td>@user.Email</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="/Users/DeleteUser/@user.Id" class="btn btn-sm btn-danger">
+                                    🗑️ Remove
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
-<button><a href="/Auth/Register">Add User</a></button>
+<style>
+    .table thead {
+        background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+        color: white;
+    }
+    .btn-success {
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+</style>

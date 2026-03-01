@@ -1,18 +1,73 @@
 @page
-@model AddProductModel
+@model MyApp.Pages.Products.AddProductModel
 
-<form method="post">
-    <div>
-        <label asp-for="createProductDto.Name"></label>
-        <input asp-for="createProductDto.Name" />
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="page-title">➕ Add New Product</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="post" class="needs-validation">
+                    <div class="mb-4">
+                        <label asp-for="createProductDto.Name" class="form-label">
+                            <strong>Product Name</strong>
+                        </label>
+                        <input asp-for="createProductDto.Name" class="form-control form-control-lg" placeholder="Enter product name" required />
+                        <span asp-validation-for="createProductDto.Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="createProductDto.Price" class="form-label">
+                            <strong>Price ($)</strong>
+                        </label>
+                        <input asp-for="createProductDto.Price" type="number" step="0.01" class="form-control form-control-lg" placeholder="0.00" required />
+                        <span asp-validation-for="createProductDto.Price" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="createProductDto.Stock" class="form-label">
+                            <strong>Stock Quantity</strong>
+                        </label>
+                        <input asp-for="createProductDto.Stock" type="number" class="form-control form-control-lg" placeholder="0" required />
+                        <span asp-validation-for="createProductDto.Stock" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="createProductDto.Description" class="form-label">
+                            <strong>Description</strong>
+                        </label>
+                        <textarea asp-for="createProductDto.Description" class="form-control form-control-lg" placeholder="Enter product description" rows="5"></textarea>
+                        <span asp-validation-for="createProductDto.Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/Products/Products" class="btn btn-secondary btn-lg">
+                            ❌ Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            ✅ Add Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="createProductDto.Price"></label>
-        <input asp-for="createProductDto.Price" />
-    </div>
-    <div>
-        <label asp-for="createProductDto.Description"></label>
-        <input asp-for="createProductDto.Description" />
-    </div>
-    <button type="submit">Add New</button>
-</form>
+</div>
+
+<style>
+    .form-label {
+        color: #4f46e5;
+        margin-bottom: 10px;
+    }
+    .form-control:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+    .btn-secondary {
+        background-color: #6b7280;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background-color: #374151;
+    }
+</style>

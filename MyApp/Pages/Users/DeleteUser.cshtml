@@ -1,0 +1,52 @@
+@page "{id:string?}"
+@model MyApp.Pages.Users.DeleteUserModel
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="page-title"> Delete User</h1>
+
+        <div class="card border-danger">
+            <div class="card-body">
+                @if (Model.user == null)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        User not found.
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Confirm Deletion</h4>
+                        <p>Are you sure you want to delete <strong>@Model.user.FullName</strong> (&lt;@Model.user.Email&gt;)? This action cannot be undone.</p>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" asp-for="user.Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a href="/Users/Users" class="btn btn-secondary btn-lg">
+                                ❌ No, Keep User
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('This action cannot be undone. Are you absolutely sure?');">
+                                🗑️ Yes, Delete User
+                            </button>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-secondary {
+        background-color: #6b7280;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background-color: #374151;
+    }
+    .card.border-danger {
+        border: 2px solid #ef4444 !important;
+        border-radius: 8px;
+    }
+</style>

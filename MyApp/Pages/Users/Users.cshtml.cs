@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApi.Entities;
 
-namespace RazorSide.Pages.Users
+namespace MyApp.Pages.Users
 {
     public class UsersModel : PageModel
     {

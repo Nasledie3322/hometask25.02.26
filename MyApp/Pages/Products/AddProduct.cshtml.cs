@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApi.DTOs;
 using WebApi.Interfaces;
 
-namespace RazorSide.Pages.Products
+namespace MyApp.Pages.Products
 {
     public class AddProductModel(IProductService productService) : PageModel
     {

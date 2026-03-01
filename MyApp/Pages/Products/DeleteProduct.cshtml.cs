@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApi.Interfaces;
 
-namespace RazorSide.Pages.Products
+namespace MyApp.Pages.Products
 {
     public class DeleteProductModel(IProductService productService) : PageModel
     {

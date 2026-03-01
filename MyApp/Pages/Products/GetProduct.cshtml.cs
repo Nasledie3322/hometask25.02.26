@@ -4,7 +4,7 @@ using WebApi.DTOs;
 using WebApi.Entities;
 using WebApi.Interfaces;
 
-namespace RazorSide.Pages.Products
+namespace MyApp.Pages.Products
 {
     public class GetProductModel(IProductService productService) : PageModel
     {

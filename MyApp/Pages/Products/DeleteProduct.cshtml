@@ -1,7 +1,44 @@
 @page "{id:int}"
-@model DeleteProductModel
-<form method="post">
-    <p>Are sure you want to delete this product?</p>
-    <button type="submit">Yes</button>
-    <button><a href="/Products/Products">No</a></button>
-</form>
+@model MyApp.Pages.Products.DeleteProductModel
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="page-title">⚠️ Delete Product</h1>
+
+        <div class="card border-danger">
+            <div class="card-body">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Confirm Deletion</h4>
+                    <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+                    <hr>
+                    <p class="mb-0">This will permanently remove the product from the system.</p>
+                </div>
+
+                <form method="post" class="mt-4">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="/Products/Products" class="btn btn-secondary btn-lg">
+                            ❌ No, Keep It
+                        </a>
+                        <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('This action cannot be undone. Are you absolutely sure?');">
+                            🗑️ Yes, Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card.border-danger {
+        border: 2px solid #ef4444 !important;
+        border-radius: 8px;
+    }
+    .btn-secondary {
+        background-color: #6b7280;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background-color: #374151;
+    }
+</style>

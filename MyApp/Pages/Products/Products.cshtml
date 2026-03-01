@@ -1,14 +1,107 @@
 @page
-@model Products.ProductsModel;
+@model MyApp.Pages.Products.ProductsModel
 
-<h1>All products</h1>
-<div class="main-div">
-@foreach(var item in Model.products){
-    <div class="products-all">
-        <p>Name: @item.Name</p>
-        <p>Price: @item.Price</p>
-        <a href="GetProduct/@item.Id">Details</a>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1 class="page-title">📦 Products Management</h1>
+    </div>
+    <div class="col-md-6 text-end">
+        <a href="AddProduct" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus"></i> Add New Product
+        </a>
+    </div>
+</div>
+
+@if (Model.products == null || Model.products.Count == 0)
+{
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No Products Found</h4>
+        <p>There are currently no products in the system. <a href="AddProduct" class="alert-link">Click here to add one</a>.</p>
     </div>
 }
-</div>
-<button><a href="AddProduct">Add Product</a></button>
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int index = 1;}
+                @foreach(var item in Model.products)
+                {
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>
+                            <strong>@item.Name</strong>
+                        </td>
+                        <td>
+                            <span class="badge badge-success">$@item.Price.ToString("F2")</span>
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Description) && item.Description.Length > 50)
+                            {
+                                <span title="@item.Description">@item.Description.Substring(0, 50)...</span>
+                            }
+                            else
+                            {
+                                <span>@(item.Description ?? "No description")</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Stock > 0)
+                            {
+                                <span class="badge bg-success">@item.Stock in stock</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Out of stock</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="GetProduct/@item.Id" class="btn btn-sm btn-info">
+                                    👁️ View
+                                </a>
+                                <a href="UpdateProduct/@item.Id" class="btn btn-sm btn-warning">
+                                    ✏️ Edit
+                                </a>
+                                <form method="post" asp-page="DeleteProduct" asp-route-id="@item.Id" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">
+                                        🗑️ Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<style>
+    .badge {
+        padding: 6px 10px;
+        font-weight: 600;
+    }
+    .badge-success {
+        background-color: #10b981 !important;
+    }
+    .btn-info {
+        background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+        border: none;
+    }
+    .btn-info:hover {
+        background: linear-gradient(90deg, #0891b2 0%, #06b6d4 100%);
+        color: white;
+    }
+</style>
