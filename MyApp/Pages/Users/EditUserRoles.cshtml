@@ -1,0 +1,55 @@
+@page "{id?}"
+@model MyApp.Pages.Users.EditUserRolesModel
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "SuperAdmin")]
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="page-title">🔐 Manage Roles for @Model.User?.FullName</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mb-4">
+                        <label class="form-label"><strong>Current roles:</strong></label>
+                        <div>
+                            @if (Model.CurrentRoles?.Count > 0)
+                            {
+                                @string.Join(", ", Model.CurrentRoles)
+                            }
+                            else
+                            {
+                                <em>none</em>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="SelectedRoles" class="form-label">
+                            <strong>Assign roles</strong>
+                        </label>
+                        <select asp-for="SelectedRoles" asp-items="Model.AllRoles" multiple class="form-select">
+                        </select>
+                        <span asp-validation-for="SelectedRoles" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/Users/Users" class="btn btn-secondary btn-lg">
+                            ❌ Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            💾 Save Roles
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label { color: #4f46e5; margin-bottom: 10px; }
+    .btn-secondary { background-color: #6b7280; border: none; }
+    .btn-secondary:hover { background-color: #374151; }
+</style>

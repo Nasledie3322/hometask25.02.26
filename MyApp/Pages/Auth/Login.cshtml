@@ -1,0 +1,44 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@model MyApp.Pages.Auth.LoginModel
+@attribute [AllowAnonymous]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="mb-0">Sign In</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="LoginDto.Email" class="form-label"></label>
+                            <input asp-for="LoginDto.Email" class="form-control" />
+                            <span asp-validation-for="LoginDto.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LoginDto.Password" class="form-label"></label>
+                            <input asp-for="LoginDto.Password" type="password" class="form-control" />
+                            <span asp-validation-for="LoginDto.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                        </div>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <a asp-page="Register">Register a new account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label { color: #4f46e5; }
+</style>

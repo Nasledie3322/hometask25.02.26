@@ -32,6 +32,16 @@
                         <span asp-validation-for="RegisterDto.Password" class="text-danger small"></span>
                     </div>
 
+                    <div class="mb-4">
+                        <label asp-for="SelectedRole" class="form-label">
+                            <strong>Role</strong>
+                        </label>
+                        <select asp-for="SelectedRole" asp-items="Model.Roles" class="form-select form-select-lg" required>
+                            <option value="">-- select a role --</option>
+                        </select>
+                        <span asp-validation-for="SelectedRole" class="text-danger small"></span>
+                    </div>
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/Users/Users" class="btn btn-secondary btn-lg">
                             ❌ Cancel

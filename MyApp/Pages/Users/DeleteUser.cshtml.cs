@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +6,7 @@ using WebApi.Entities;
 
 namespace MyApp.Pages.Users
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class DeleteUserModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

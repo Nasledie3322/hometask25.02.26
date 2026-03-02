@@ -9,13 +9,17 @@ namespace RazorSide.Pages.Auth
     public class RegisterModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public RegisterModel(UserManager<ApplicationUser> userManager)
-        {
-            _userManager = userManager;
-        }
+    private readonly SignInManager<ApplicationUser> _signInManager;
+    public RegisterModel(UserManager<ApplicationUser> userManager,
+                         SignInManager<ApplicationUser> signInManager)
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
 
-        [BindProperty]
-        public RegisterDto RegisterDto { get; set; } = new();
+    }
+
+    [BindProperty]
+    public RegisterDto RegisterDto { get; set; } = new();
 
         public void OnGet()
         {
@@ -50,7 +54,16 @@ namespace RazorSide.Pages.Auth
                 return Page();
             }
 
-            return RedirectToPage("/Users/Users");
+            // newly registered users become plain Users by default
+            await _userManager.AddToRoleAsync(user, "User");
+
+            // auto signin so the act of registering leaves the user authenticated
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            // after self‑registration redirect to a page the new user can actually view
+            // (the original code sent everyone to the user‑management page, which is
+            // restricted to SuperAdmin and caused a 403/"couldn't register" feeling)
+            return RedirectToPage("/Products/Products");
         }
 
     }

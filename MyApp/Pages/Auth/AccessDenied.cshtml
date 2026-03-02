@@ -1,0 +1,15 @@
+@page
+@using Microsoft.AspNetCore.Authorization
+@attribute [AllowAnonymous]
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-warning text-center">
+                <h3>Access Denied</h3>
+                <p>You do not have permission to view this page.</p>
+                <p><a asp-page="/Auth/Login">Click here to log in with a different account</a></p>
+            </div>
+        </div>
+    </div>
+</div>

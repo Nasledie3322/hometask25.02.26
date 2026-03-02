@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApi.DTOs;
 using WebApi.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace MyApp.Pages.Products
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class UpdateProductModel(IProductService productService) : PageModel
     {
         private readonly IProductService service = productService;

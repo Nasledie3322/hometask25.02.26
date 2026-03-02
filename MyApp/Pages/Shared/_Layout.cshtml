@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -233,8 +234,12 @@
                                 📦 Products
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                                <!-- everybody who is signed-in can view -->
                                 <li><a class="dropdown-item" asp-area="" asp-page="/Products/Products">View Products</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Products/AddProduct">Add Product</a></li>
+                                <!-- only admins and superadmins can add/edit/delete -->
+                                <AuthorizeView Roles="SuperAdmin,Admin">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Products/AddProduct">Add Product</a></li>
+                                </AuthorizeView>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -242,14 +247,33 @@
                                 👥 Users
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="usersDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Users/Users">View Users</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Auth/Register">Register</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Users/AddUser">Add User</a></li>
+                                <AuthorizeView Roles="SuperAdmin">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Users/Users">View Users</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Users/AddUser">Add User</a></li>
+                                </AuthorizeView>
+                                <AuthorizeView>
+                                    <NotAuthorized>
+                                        <li><a class="dropdown-item" asp-area="" asp-page="/Auth/Register">Register</a></li>
+                                    </NotAuthorized>
+                                </AuthorizeView>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Privacy">ℹ️ Privacy</a>
                         </li>
+                        <AuthorizeView>
+                            <Authorized>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="event.preventDefault();document.getElementById('logoutForm').submit();">🔓 Logout</a>
+                                    <form id="logoutForm" method="post" asp-page="/Auth/Login" asp-route-handler="Logout" class="d-none"></form>
+                                </li>
+                            </Authorized>
+                            <NotAuthorized>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Auth/Login">🔐 Login</a>
+                                </li>
+                            </NotAuthorized>
+                        </AuthorizeView>
                     </ul>
                 </div>
             </div>

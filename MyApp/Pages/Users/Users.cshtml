@@ -28,19 +28,26 @@ else
                     <th>#</th>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>Roles</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @{int index = 1;}
-                @foreach (var user in Model.users)
+                @foreach (var tuple in Model.users)
                 {
+                    var user = tuple.User;
+                    var roles = tuple.Roles;
                     <tr>
                         <td>@index</td>
                         <td>@user.FullName</td>
                         <td>@user.Email</td>
+                        <td>@string.Join(", ", roles)</td>
                         <td>
                             <div class="action-buttons">
+                                <a href="/Users/EditUserRoles/@user.Id" class="btn btn-sm btn-info">
+                                    🔧 Roles
+                                </a>
                                 <a href="/Users/DeleteUser/@user.Id" class="btn btn-sm btn-danger">
                                     🗑️ Remove
                                 </a>
